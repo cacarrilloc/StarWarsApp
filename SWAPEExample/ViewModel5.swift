@@ -24,7 +24,6 @@ class ViewModel5 {
         self.ViewController5 = delegate
     }
     
-    
     func getCharacterSpecie(specieUrl: String) {
         Networking.callApi(url: specieUrl) {
             [weak self] (error, data) in
@@ -33,7 +32,6 @@ class ViewModel5 {
             }
             guard let data = data else {return}
             do{
-                
                 let json = try JSONSerialization.jsonObject(with: data)
                 guard let dictionary = json as? [String:Any] else {return}
                 let homeworldInfo = try? SWCharacterSpecie(dict: dictionary)

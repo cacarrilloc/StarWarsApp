@@ -24,7 +24,6 @@ class ViewModel4 {
         self.ViewController4 = delegate
     }
     
-
     func getCharacterHomeworld(homeworldUrl: String) {
         Networking.callApi(url: homeworldUrl) {
             [weak self] (error, data) in
