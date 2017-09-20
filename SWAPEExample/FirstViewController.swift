@@ -31,8 +31,6 @@ class FirstViewController: UIViewController {
 extension FirstViewController:VMDelegate1{
     func loginFunction(){
         // Items shapes
-        //self.myLabel.layer.cornerRadius = 10.0
-        //self.myLabel.clipsToBounds = true
         self.myButton.layer.cornerRadius = 15
         self.myImage.image = #imageLiteral(resourceName: "StarWarsLogo")
         self.myImage.clipsToBounds = true
