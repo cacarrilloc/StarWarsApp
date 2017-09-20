@@ -12,15 +12,14 @@ import UIKit
 class FirstViewController: UIViewController {
     
     @IBOutlet weak var myImage: UIImageView!
-    @IBOutlet weak var myLabel: UILabel!
+    //@IBOutlet weak var myLabel: UILabel!
     @IBOutlet weak var myButton: UIButton!
+    
+    lazy var firstViewModel:ViewModel1 = ViewModel1(delegate: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        myLabel.layer.cornerRadius = 10.0
-        myLabel.clipsToBounds = true
-        myButton.layer.cornerRadius = 15
-        myImage.image = #imageLiteral(resourceName: "StarWarsLogo")
+        firstViewModel.assignbackground()
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,7 +28,27 @@ class FirstViewController: UIViewController {
 }
 
 
-
+extension FirstViewController:VMDelegate1{
+    func loginFunction(){
+        // Items shapes
+        //self.myLabel.layer.cornerRadius = 10.0
+        //self.myLabel.clipsToBounds = true
+        self.myButton.layer.cornerRadius = 15
+        self.myImage.image = #imageLiteral(resourceName: "StarWarsLogo")
+        self.myImage.clipsToBounds = true
+        
+        // MARK: Background image
+        let background = UIImage(named: "skyWalker")
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIViewContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubview(toBack: imageView)
+    }
+}
 
 
 

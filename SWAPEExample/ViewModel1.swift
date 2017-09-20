@@ -6,21 +6,24 @@
 //  Copyright © 2017 Carlos Carrillo. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import Foundation
 import CoreLocation
 
 protocol VMDelegate1:class{
-    func getPokemonNames(array: [SWCharacter])
+    func loginFunction()
 }
 
 class ViewModel1 {
     
-    var pokemons:[SWCharacter]?
     weak var ViewController1:VMDelegate1?
     
     init(delegate:VMDelegate1? = nil){
         self.ViewController1 = delegate
+    }
+    
+    func assignbackground(){
+        ViewController1?.loginFunction()
     }
 }
 

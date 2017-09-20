@@ -7,16 +7,27 @@
 //
 
 import Foundation
+import Alamofire
+import UIKit
+
+public enum HTTPMethod: String {
+    case options = "OPTIONS"
+    case get     = "GET"
+    case head    = "HEAD"
+    case post    = "POST"
+    case put     = "PUT"
+    case patch   = "PATCH"
+    case delete  = "DELETE"
+    case trace   = "TRACE"
+    case connect = "CONNECT"
+}
 
 class Networking {
     
     static func callApi (url:String, completion:@escaping (Error?, Data?)->()) {
-        
-        guard let url = URL(string: url) else {return}
-        let session = URLSession.shared
-        let task = session.dataTask(with: url) { (data, response, error) in
-            completion(error, data)
+        Alamofire.request(url, method: .get).responseString { response in
+                guard let data = response.data else {return}
+                completion(response.error, data)
         }
-        task.resume()
     }
 }

@@ -27,6 +27,7 @@ class ThirdViewController: UIViewController, UIActionSheetDelegate {
         super.viewDidLoad()
         myButton1.layer.cornerRadius = 15
         myButton2.layer.cornerRadius = 15
+        myImageView.clipsToBounds = true
         guard let array = passedArray else {return}
         self.ThirdViewModel.getCharacterInfo(infoArray: array)
     }
@@ -34,14 +35,14 @@ class ThirdViewController: UIViewController, UIActionSheetDelegate {
     
     @IBAction func sendToHomeworld(sender: UIButton){
         let myVC1 = self.storyboard?.instantiateViewController(withIdentifier: "HomeworldViewController") as! HomeworldViewController
-        myVC1.passHomeworldUrl = self.passedArray?[5]
+        myVC1.passHomeworldUrl = self.passedArray?[5] // Homeworld url
         self.navigationController?.pushViewController(myVC1, animated: true)
         print ("@IBActionHomeWorld")
     }
     
     @IBAction func sendToSpecies(sender: UIButton){
         let myVC2 = self.storyboard?.instantiateViewController(withIdentifier: "SpecieViewController") as! SpecieViewController
-        myVC2.passSpecieUrl = self.passedArray?[4]
+        myVC2.passSpecieUrl = self.passedArray?[4] // Specie url
         self.navigationController?.pushViewController(myVC2, animated: true)
         print ("@IBActionSpecies")
     }
@@ -50,6 +51,18 @@ class ThirdViewController: UIViewController, UIActionSheetDelegate {
 extension ThirdViewController:VMDelegate3{
     func passCharacterData(array: [String]){
         DispatchQueue.main.async {
+            // MARK: Background image
+            let background = UIImage(named: "skyWalker")
+            var imageView : UIImageView!
+            imageView = UIImageView(frame: self.view.bounds)
+            imageView.contentMode =  UIViewContentMode.scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.image = background
+            imageView.center = self.view.center
+            self.view.addSubview(imageView)
+            self.view.sendSubview(toBack: imageView)
+            
+            // Pass values to Items
             self.myImageView.image = #imageLiteral(resourceName: "StarWarsLogo")
             self.myLabel1.text = array[0]
             self.myLabel2.text = array[1]

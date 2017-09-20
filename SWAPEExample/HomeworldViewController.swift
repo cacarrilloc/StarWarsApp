@@ -22,6 +22,7 @@ class HomeworldViewController: UIViewController, UIActionSheetDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        myImageView.clipsToBounds = true
         guard let url = passHomeworldUrl else {return}
         HomeworldViewModel.getCharacterHomeworld(homeworldUrl: url)
     }
@@ -34,6 +35,18 @@ class HomeworldViewController: UIViewController, UIActionSheetDelegate{
 extension HomeworldViewController:VMDelegate4{
     func passCharacterData(array: [String]){
         DispatchQueue.main.async {
+            // MARK: Background image
+            let background = UIImage(named: "skyWalker")
+            var imageView : UIImageView!
+            imageView = UIImageView(frame: self.view.bounds)
+            imageView.contentMode =  UIViewContentMode.scaleAspectFill
+            imageView.clipsToBounds = true
+            imageView.image = background
+            imageView.center = self.view.center
+            self.view.addSubview(imageView)
+            self.view.sendSubview(toBack: imageView)
+            
+            // Pass values to Items
             self.myImageView.image = #imageLiteral(resourceName: "StarWarsLogo")
             self.myLabel1.text = array[0]
             self.myLabel2.text = array[1]
